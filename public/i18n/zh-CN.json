@@ -2,5 +2,8 @@
     "header": {
         "changeUser": "切换用户",
         "nameUnknown": "请输入用户名"
+    },
+    "daly": {
+        "today": "今天"
     }
 }

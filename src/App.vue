@@ -7,6 +7,7 @@ let lang = $ref(zhCN);
 let loginUser = $ref("Username");
 
 function onChangeUser(userName:string) {
+  console.log("userName",userName);
   
 }
 
@@ -16,7 +17,11 @@ function onChangeUser(userName:string) {
   <ConfigProvider :locale="lang">
     <Suspense>
       <main class="main">
-        <Header :loginUser="loginUser" @changeUser="" />
+        <Header :loginUser="loginUser" @changeUser="onChangeUser" />
+
+        <div class="m-30-30 df">
+          13213
+        </div>
       </main>
     </Suspense>
   </ConfigProvider>
