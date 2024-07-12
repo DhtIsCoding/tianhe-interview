@@ -1,0 +1,26 @@
+{
+  "name": "th",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.29",
+    "vue-i18n": "9"
+  },
+  "devDependencies": {
+    "@arco-design/web-vue": "^2.55.3",
+    "@arco-plugins/vite-vue": "^1.4.5",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue-macros/reactivity-transform": "^0.4.6",
+    "less": "^4.2.0",
+    "typescript": "^5.2.2",
+    "unocss": "^0.61.3",
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.21"
+  }
+}
