@@ -38,6 +38,7 @@ export default function postSummarizer(params: SummarizerDto) {
           method: "POST",
           body: JSON.stringify(params),
           signal: cancelToken.signal,
+          // options请求没开，只能用no-cors但是 content-type 不能是application/json 麻了
           mode: 'no-cors',
         }
       );
