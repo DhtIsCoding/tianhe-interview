@@ -4,7 +4,6 @@ export default defineConfig({
   rules: [
     [/^m-([\.\d]+)$/, ([_, num]) => ({ margin: `${num}px` })],
     [/^mr-([\.\d]+)$/, ([_, num]) => ({ "margin-right": `${num}px` })],
-
     [
       /^m-([\.\d]+)-([\.\d]+)$/,
       ([_, num1, num2]) => ({ margin: `${num1}px ${num2}px` }),
@@ -29,12 +28,6 @@ export default defineConfig({
         display: "flex",
         "align-items": "center",
       },
-    ],
-    [
-      "jc-sb",
-      {
-        "justify-content": "space-between",
-      },
-    ],
+    ]
   ],
 });

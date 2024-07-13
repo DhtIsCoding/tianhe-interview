@@ -43,7 +43,7 @@ function handleOk() {
 </script>
 
 <template>
-    <div class="box m-10-30 p-0-20 df jc-sb">
+    <div class="box m-10-30 p-0-20 df header">
         <h1>AI 工具箱</h1>
 
         <div>
@@ -66,3 +66,8 @@ function handleOk() {
     </div>
 </template>
 
+<style lang="less" scoped>
+.header {
+    justify-content: space-between
+}
+</style>

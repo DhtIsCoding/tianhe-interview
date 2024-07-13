@@ -5,7 +5,7 @@ export interface MessgaeDto {
 }
 
 export interface SummarizerDto {
-  messages: Array<MessgaeDto>;
+  messages: [MessgaeDto];
   model: "model-6b/model-100b";
   // 文档没有SSE地址咋启用啊？
   stream: boolean;
@@ -16,19 +16,51 @@ export interface SummarizerResponse {
   content: string;
 }
 
-export async function summarizer(params: SummarizerDto) {
-  const res = await fetch(
-    "https://llm-summarizer.ga.skyvault.cn:30443/api/summarizer/text",
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    }
-  );
+export default function postSummarizer(params: SummarizerDto) {
+  const cancelToken = new AbortController();
 
-  if (!res.ok) {
-    throw new Error("Network response was not ok");
+  let cancelReject: ((reason?: any) => void) | null = null;
+
+  const cancelPromise = new Promise((_, reject) => {
+    cancelReject = reject;
+  });
+
+  function cancelRequest() {
+    cancelToken.abort();
+    cancelReject?.("取消了");
   }
 
-  const data = await res.json();
-  return data as SummarizerResponse;
+  const getDataPromise = new Promise(async (resolve, reject) => {
+    try {
+      // 服务器503了，不知道为什么
+      // const res = await fetch(
+      //   "https://llm-summarizer.ga.skyvault.cn:30443/api/summarizer/text",
+      //   {
+      //     method: "POST",
+      //     body: JSON.stringify(params),
+      //     signal: cancelToken.signal,
+      //     mode:'no-cors'
+      //   }
+      // );
+
+      // if (!res.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+
+      // const data = await res.json();
+
+      // resolve(data as SummarizerResponse);
+      resolve({
+        role: "assistant",
+        content: "这是一个总结",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  return {
+    cancelRequest,
+    request: Promise.race([getDataPromise, cancelPromise]),
+  };
 }

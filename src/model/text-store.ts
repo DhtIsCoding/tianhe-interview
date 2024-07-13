@@ -3,6 +3,9 @@ export interface TextSimpleDisplay {
   question: string;
 }
 
-export interface TextStore extends TextSimpleDisplay {
-  answer: string;
+export interface TextStoreModel extends TextSimpleDisplay {
+  answer: {
+    date: string;
+    content: string;
+  }[];
 }
