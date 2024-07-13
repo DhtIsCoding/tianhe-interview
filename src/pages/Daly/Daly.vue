@@ -151,7 +151,24 @@ defineExpose({ init });
       </div>
     </section>
   </div>
-  <Empty v-else />
+  <div v-else class="daly" >
+    <section
+      class="mb-10"
+    >
+      <div class="df date">
+        <span>
+          {{ $t('daly.today') }}
+        </span>
+      </div>
+      <div
+        class="empty p-5-10 m-10-0 df"
+      >
+        <span>
+          {{ $t('daly.empty') }}
+        </span>
+      </div>
+    </section>
+    </div>
 </template>
 
 <style lang="less" scoped>
@@ -171,6 +188,12 @@ defineExpose({ init });
       background-color: rgb(162, 169, 189);
       cursor: pointer;
     }
+  }
+
+  .empty {
+      justify-content: space-between;
+    box-sizing: border-box;
+    background-color: rgb(235, 237, 240);
   }
 }
 </style>

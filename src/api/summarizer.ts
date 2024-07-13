@@ -32,28 +32,28 @@ export default function postSummarizer(params: SummarizerDto) {
 
   const getDataPromise = new Promise(async (resolve, reject) => {
     try {
-      const res = await fetch(
-        "https://llm-summarizer.ga.skyvault.cn:30443/api/summarizer/text",
-        {
-          method: "POST",
-          body: JSON.stringify(params),
-          signal: cancelToken.signal,
-          // options请求没开，只能用no-cors但是 content-type 不能是application/json 麻了
-          mode: 'no-cors',
-        }
-      );
+      // const res = await fetch(
+      //   "https://llm-summarizer.ga.skyvault.cn:30443/api/summarizer/text",
+      //   {
+      //     method: "POST",
+      //     body: JSON.stringify(params),
+      //     signal: cancelToken.signal,
+      //     // options请求没开，只能用no-cors但是 content-type 不能是application/json 麻了
+      //     mode: 'no-cors',
+      //   }
+      // );
 
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // if (!res.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
 
-      const data = await res.json();
+      // const data = await res.json();
 
-      resolve(data as SummarizerResponse);
-      // resolve({
-      //   role: "assistant",
-      //   content: "这是一个总结",
-      // });
+      // resolve(data as SummarizerResponse);
+      resolve({
+        role: "assistant",
+        content: "这是一个总结",
+      });
     } catch (error) {
       reject(error);
     }
