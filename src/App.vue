@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ConfigProvider } from '@arco-design/web-vue';
-import zhCN from '@arco-design/web-vue/es/locale/lang/zh-CN';
+import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn.js';
 import Header from "./pages/Header/Header.vue"
 import Daly from './pages/Daly/Daly.vue';
 import Summarizer from "./pages/Summarizer/Summarizer.vue"
