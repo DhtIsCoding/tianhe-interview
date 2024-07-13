@@ -60,7 +60,7 @@ async function handleSummarizer() {
         content: inputText,
       },
     ],
-    model: "model-6b/model-100b",
+    model: "model-6b",
     stream: false,
   });
 
@@ -138,10 +138,10 @@ function release() {
   </div>
 </template>
 
-<style>
+<style lang="less" scoped>
 .summarizer {
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 12px;
   height: 100%;
 
   .text-area {

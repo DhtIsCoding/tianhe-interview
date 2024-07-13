@@ -6,7 +6,7 @@ export interface MessgaeDto {
 
 export interface SummarizerDto {
   messages: [MessgaeDto];
-  model: "model-6b/model-100b";
+  model: "model-6b";
   // 文档没有SSE地址咋启用啊？
   stream: boolean;
 }
@@ -32,28 +32,27 @@ export default function postSummarizer(params: SummarizerDto) {
 
   const getDataPromise = new Promise(async (resolve, reject) => {
     try {
-      // 服务器503了，不知道为什么
-      // const res = await fetch(
-      //   "https://llm-summarizer.ga.skyvault.cn:30443/api/summarizer/text",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify(params),
-      //     signal: cancelToken.signal,
-      //     mode:'no-cors'
-      //   }
-      // );
+      const res = await fetch(
+        "https://llm-summarizer.ga.skyvault.cn:30443/api/summarizer/text",
+        {
+          method: "POST",
+          body: JSON.stringify(params),
+          signal: cancelToken.signal,
+          mode: 'no-cors',
+        }
+      );
 
-      // if (!res.ok) {
-      //   throw new Error("Network response was not ok");
-      // }
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-      // const data = await res.json();
+      const data = await res.json();
 
-      // resolve(data as SummarizerResponse);
-      resolve({
-        role: "assistant",
-        content: "这是一个总结",
-      });
+      resolve(data as SummarizerResponse);
+      // resolve({
+      //   role: "assistant",
+      //   content: "这是一个总结",
+      // });
     } catch (error) {
       reject(error);
     }

@@ -4,7 +4,7 @@ import type { TextStoreModel, TextSimpleDisplay } from "@/model/text-store";
 import dayjs from "dayjs";
 import { useI18n } from "vue-i18n";
 import { Empty, Button } from "@arco-design/web-vue";
-import { IconDelete, IconClose } from '@arco-design/web-vue/es/icon';
+import { IconDelete, IconClose } from "@arco-design/web-vue/es/icon";
 
 const props = defineProps<{
   loginUser: string;
@@ -21,7 +21,7 @@ const isEmpty = computed(() => !![...displayTexts.keys()].length);
 
 function init(loginUser: string) {
   displayTexts = new Map();
-  
+
   const textStr = localStorage.getItem(loginUser);
 
   if (!textStr) {
@@ -31,18 +31,24 @@ function init(loginUser: string) {
   const textArr = JSON.parse(textStr) as TextStoreModel[];
 
   for (const iterator of textArr) {
-    const temp = displayTexts.get(transData(iterator.date) );
-      const question = iterator.question.slice(0, 10);
+    const temp = displayTexts.get(transData(iterator.date));
+    const question = iterator.question.slice(0, 10);
     if (temp) {
       temp.push({
         date: iterator.date,
-        question: question.length === 10 ? iterator.question.slice(0, 10) + "..." : question,
+        question:
+          question.length === 10
+            ? iterator.question.slice(0, 10) + "..."
+            : question,
       });
     } else {
       displayTexts.set(transData(iterator.date), [
         {
           date: iterator.date,
-          question: question.length === 10 ? iterator.question.slice(0, 10) + "..." : question,
+          question:
+            question.length === 10
+              ? iterator.question.slice(0, 10) + "..."
+              : question,
         },
       ]);
     }
@@ -72,17 +78,20 @@ function handleDelByDate(date: string) {
 
   localStorage.setItem(
     props.loginUser,
-    JSON.stringify(textArr.filter((item: TextStoreModel) => transData(item.date) !== date))
+    JSON.stringify(
+      textArr.filter((item: TextStoreModel) => transData(item.date) !== date)
+    )
   );
 }
 
 function handleDelByQuestion(date: string, question: string) {
-
   const temp = displayTexts.get(date);
 
   displayTexts.set(
     date,
-    temp!.filter((item) => !item.question.startsWith(question.replace("...", "")))
+    temp!.filter(
+      (item) => !item.question.startsWith(question.replace("...", ""))
+    )
   );
 
   const textStr = localStorage.getItem(props.loginUser)!;
@@ -94,13 +103,14 @@ function handleDelByQuestion(date: string, question: string) {
     JSON.stringify(
       textArr.filter(
         (item: TextStoreModel) =>
-          item.date !== date && item.question.startsWith(question.replace("...", ""))
+          item.date !== date &&
+          item.question.startsWith(question.replace("...", ""))
       )
     )
   );
 }
 
-defineExpose({init})
+defineExpose({ init });
 </script>
 
 <template>
@@ -115,7 +125,7 @@ defineExpose({init})
           {{ date }}
         </span>
 
-        <Button type="text" @click="handleDelByDate(date)" style="color: black;">
+        <Button type="text" @click="handleDelByDate(date)" style="color: black">
           <template #icon>
             <IconDelete />
           </template>
@@ -125,7 +135,7 @@ defineExpose({init})
         v-for="item in texts"
         :key="item.date"
         class="item p-5-10 m-10-0 df"
-        @click="onDateSelected(item )"
+        @click="onDateSelected(item)"
       >
         <span>
           {{ item.question }}

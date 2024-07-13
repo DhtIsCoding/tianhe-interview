@@ -7,11 +7,11 @@ import Summarizer from "./pages/Summarizer/Summarizer.vue"
 import Result from "./pages/Result/Result.vue"
 import type { TextSimpleDisplay } from './model/text-store';
 
+const dalyRef = $ref<InstanceType<typeof Daly> | null>(null);
+const resultRef = $ref<InstanceType<typeof Result> | null>(null);
 
 let lang = $ref(zhCN);
-const dalyRef = $ref<InstanceType<typeof Daly> | null>(null);
 let loginUser = $ref(localStorage.getItem("loginUser") || "Username");
-let selectedDateQueston = $ref("");
 
 function onChangeUser(userName:string) {
   console.log("userName", userName);
@@ -22,13 +22,11 @@ function onChangeUser(userName:string) {
 }
 
 function onSubmit() {
-  console.log("onSubmit");
-  
   dalyRef?.init(loginUser)
 }
 
 function handleDaleSeleted(data:TextSimpleDisplay) {
-  console.log("handleDaleSeleted",data);
+  resultRef?.init(data.date, data.question)
 }
 </script>
 
@@ -43,7 +41,7 @@ function handleDaleSeleted(data:TextSimpleDisplay) {
 
           <Summarizer :loginUser="loginUser" @onSubmit="onSubmit"/>
 
-          <Result/>
+          <Result ref="resultRef" :loginUser="loginUser"/>
         </div>
       </main>
     </Suspense>

@@ -16,5 +16,9 @@
         "textPlaceholder":"原始文本内容。。。",
         "beginSummarizer":"开始总结",
         "cancelSummarizer":"取消总结"
+    },
+    "result":{
+        "copySuccess":"内容已复制到剪贴板",
+        "copyError":"复制到剪贴板失败"
     }
 }

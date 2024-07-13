@@ -12,7 +12,7 @@ function handleClose() {
 </script>
 
 <template>
-    <div v-if="show" class="alert box p-15 df">
+    <div v-if="show" class="alert box p-10-15 df">
         <IconInfoCircleFill :size="size" class="info"/>
         <span class="ml-10 text">
             {{ $t("summarizer.alert.alertText") }}
