@@ -14,8 +14,6 @@ let lang = $ref(zhCN);
 let loginUser = $ref(localStorage.getItem("loginUser") || "Username");
 
 function onChangeUser(userName:string) {
-  console.log("userName", userName);
-
   loginUser = userName;
 
   localStorage.setItem("loginUser", userName);
@@ -23,6 +21,7 @@ function onChangeUser(userName:string) {
 
 function onSubmit() {
   dalyRef?.init(loginUser)
+  resultRef?.init()
 }
 
 function handleDaleSeleted(data:TextSimpleDisplay) {

@@ -3,6 +3,7 @@ import type { TextStoreModel } from "@/model/text-store";
 import dayjs from "dayjs";
 import { Empty, Message } from "@arco-design/web-vue";
 import { useI18n } from "vue-i18n";
+import { watch } from "vue";
 
 const props = defineProps<{
   loginUser: string;
@@ -11,7 +12,16 @@ const props = defineProps<{
 const { t } = useI18n();
 let entity = $ref<TextStoreModel>();
 
+watch(
+  () => props.loginUser,
+  () => {
+    init();
+  }
+);
+
 function init(date?: string, question?: string) {
+  entity = undefined;
+
   const textStr = localStorage.getItem(props.loginUser);
 
   if (!textStr) {

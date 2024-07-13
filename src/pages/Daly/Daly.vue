@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, watchEffect } from "vue";
 import type { TextStoreModel, TextSimpleDisplay } from "@/model/text-store";
 import dayjs from "dayjs";
 import { useI18n } from "vue-i18n";
-import { Empty, Button } from "@arco-design/web-vue";
+import { Button } from "@arco-design/web-vue";
 import { IconDelete, IconClose } from "@arco-design/web-vue/es/icon";
+import { watch } from "vue";
 
 const props = defineProps<{
   loginUser: string;
@@ -17,7 +17,14 @@ const { t } = useI18n();
 const today = dayjs().format("YYYY-MM-DD");
 
 let displayTexts = $ref<Map<string, TextSimpleDisplay[]>>(new Map());
-const isEmpty = computed(() => !![...displayTexts.keys()].length);
+const isEmpty = $computed(() => !![...displayTexts.keys()].length);
+
+watch(
+  () => props.loginUser,
+  (newValue) => {
+    init(newValue);
+  }
+);
 
 function init(loginUser: string) {
   displayTexts = new Map();
@@ -55,9 +62,7 @@ function init(loginUser: string) {
   }
 }
 
-watchEffect(() => {
-  init(props.loginUser);
-});
+init(props.loginUser);
 
 function transData(params: string) {
   const temp = dayjs(+params).format("YYYY-MM-DD");
@@ -151,24 +156,20 @@ defineExpose({ init });
       </div>
     </section>
   </div>
-  <div v-else class="daly" >
-    <section
-      class="mb-10"
-    >
+  <div v-else class="daly">
+    <section class="mb-10">
       <div class="df date">
         <span>
-          {{ $t('daly.today') }}
+          {{ $t("daly.today") }}
         </span>
       </div>
-      <div
-        class="empty p-5-10 m-10-0 df"
-      >
+      <div class="empty p-5-10 m-10-0 df">
         <span>
-          {{ $t('daly.empty') }}
+          {{ $t("daly.empty") }}
         </span>
       </div>
     </section>
-    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>
@@ -191,7 +192,7 @@ defineExpose({ init });
   }
 
   .empty {
-      justify-content: space-between;
+    justify-content: space-between;
     box-sizing: border-box;
     background-color: rgb(235, 237, 240);
   }
