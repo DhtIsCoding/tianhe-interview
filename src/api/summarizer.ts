@@ -17,6 +17,8 @@ export interface SummarizerResponse {
 }
 
 export default function postSummarizer(params: SummarizerDto) {
+  console.log("params");
+  
   const cancelToken = new AbortController();
 
   let cancelReject: ((reason?: any) => void) | null = null;
